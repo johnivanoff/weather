@@ -27,7 +27,6 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: mysql2://root:password123@127.0.0.1/applied_at_company_test
           RAILS_MASTER_KEY: ${{ secrets.TEST_KEY }}
         run: HEADLESS=1 bundle exec rails test:all
 
