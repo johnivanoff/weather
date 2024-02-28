@@ -12,7 +12,7 @@ class WeatherApi
 
   private
     def get_and_parse(uri)
-      response = HTTParty.get(uri, headers: { 'Authorization' => "Bearer #{api_key}" })
+      response = HTTParty.get(uri, headers: { "Authorization" => "Bearer #{api_key}" })
       JSON.parse response.body
     end
 
@@ -21,10 +21,10 @@ class WeatherApi
     end
 
     def api_key
-      api_key = WeatherJwt.new.jwt
+      WeatherJwt.new.jwt
     end
 
     def weather_conditions
-      @data['weather']
+      @data["weather"]
     end
 end

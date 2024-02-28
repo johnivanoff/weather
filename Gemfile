@@ -55,6 +55,18 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  # Use brakeman for security checks
+  gem "brakeman", require: false
+
+  # Use bundler-audit for security checks
+  gem "bundler-audit", require: false
+
+  # Use rubocop for code style checks
+  gem "rubocop", require: false
+  gem "rubocop-minitest", require: false
+  gem "rubocop-packaging", require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
