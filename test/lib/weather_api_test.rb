@@ -4,7 +4,7 @@ class WeatherApiTest < ActionDispatch::IntegrationTest
   setup do
     file_name = File.basename(__FILE__).split(".").first
     test_name = name
-    @cassette = name_cassete(file_name: file_name, test_name: test_name)
+    @cassette = name_cassete(file_name:, test_name:)
   end
 
   test "should get weather" do
