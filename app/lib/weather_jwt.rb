@@ -13,20 +13,20 @@ class WeatherJwt
     def header
       {
         "alg" => "ES256",
-        "kid" => Rails.application.credentials.dig(:APPLE_KEY_ID)
+        "kid" => Rails.application.credentials.dig(:weather, :apple_key_id)
       }
     end
 
     def payload
       {
-        "iss" => Rails.application.credentials.dig(:TEAM_ID),
+        "iss" => Rails.application.credentials.dig(:team_id),
         "iat" => Time.now.to_i,
         "exp" => Time.now.to_i + 60 * 60 * 24 * 30 * 5, # Expire in 5 months
-        "sub" => Rails.application.credentials.dig(:CLIENT_ID)
+        "sub" => Rails.application.credentials.dig(:weather, :client_id)
       }
     end
 
     def private_key
-      OpenSSL::PKey.read(Rails.application.credentials.dig(:PRIVATE_KEY))
+      OpenSSL::PKey.read(Rails.application.credentials.dig(:weather, :private_key))
     end
 end

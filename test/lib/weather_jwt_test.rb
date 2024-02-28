@@ -7,7 +7,7 @@ class WeatherJwtTest < ActiveSupport::TestCase
 
     assert_instance_of String, jwt
     assert_not_empty jwt
-    assert_equal Rails.application.credentials.dig(:TEAM_ID), decoded_payload["iss"]
-    assert_equal Rails.application.credentials.dig(:CLIENT_ID), decoded_payload["sub"]
+    assert_equal Rails.application.credentials.dig(:team_id), decoded_payload["iss"]
+    assert_equal Rails.application.credentials.dig(:weather, :client_id), decoded_payload["sub"]
   end
 end
