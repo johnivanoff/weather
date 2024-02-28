@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://weatherkit.apple.com/api/v1/weather/en/41.388527/-82.044076?dataSets=currentWeather,forecastDaily
+    body:
+      encoding: US-ASCII
+      base64_string: ''
+    headers:
+      Authorization:
+      - Bearer seyJhbGciOiJFUzI1NiIsImtpZCI6IlNKUTQyMjY3UzMifQ.eyJpc3MiOiJYNDgyUldEUTZLIiwiaWF0IjoxNzA5MDYwODYyLCJleHAiOjE3MjIwMjA4NjIsInN1YiI6ImNvbS5qb2huaXZhbm9mZi53ZWF0aGVya2l0LWNsaWVudCJ9.nBLz-mN1f9WQ3YquJ8qcidXy5o6-eUjU3q42__vrd3nxCkNBpo5d1pz78LkjVMqWlcrJt47xASLYPjnUk7hgNg
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Server:
+      - Apple
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains
+      X-Xss-Protection:
+      - 1; mode=block
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self';
+      X-Request-Id:
+      - 2ee88f22-8fc5-80b9-e8a6-235e9b81f43b
+      Date:
+      - Wed, 28 Feb 2024 17:31:00 GMT
+      X-Cache:
+      - TCP_MISS from a23-222-236-30.deploy.akamaitechnologies.com (AkamaiGHost/11.4.2.2-54704533)
+        (-)
+      Connection:
+      - close
+    body:
+      encoding: UTF-8
+      base64_string: 'eyJyZWFzb24iOiAiTUFMRk9STUVEX0FVVEgifQ==
+
+        '
+  recorded_at: Wed, 28 Feb 2024 17:31:00 GMT
+recorded_with: VCR 6.2.0
