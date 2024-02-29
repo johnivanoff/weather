@@ -1,2 +1,7 @@
-<h1>Homepage#index</h1>
-<p>Find me in app/views/homepage/index.html.erb</p>
+<h1>Homepage</h1>
+<%= form_tag({controller: "locations", action: "update"}, method: "post", id: "geocode-form") do %>
+  <%= text_field_tag :address, nil, placeholder: "Enter Address", id: "address-input" %>
+  <%= submit_tag "Get the Weather" %>
+<% end %>
+<div id="temperatureDiv">Current Temperature: </div>
+<div id="map-container"></div>

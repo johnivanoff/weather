@@ -8,6 +8,21 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <style>
+      #map-container {
+          width: 100%;
+          height: 600px;
+      }
+    </style>
+    <!-- TODO: Add the value of data-initial-token with a JWT
+dynamically generated on the server -->
+<script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.core.js"
+    crossorigin async
+    data-callback="initMapKit"
+    data-libraries="map,annotations,services"
+    data-initial-token="">
+</script>
+
   </head>
 
   <body>
