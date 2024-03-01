@@ -21,8 +21,6 @@ const setupMapKitJs = async() => {
       delete window.initMapKit;
   }
 
-  // TODO: For production use, the JWT should not be hard-coded into JS.
-  const jwt = "";
   mapkit.init({
       authorizationCallback: done => { done(jwt); }
   });
@@ -30,11 +28,32 @@ const setupMapKitJs = async() => {
 
 const main = async() => {
   await setupMapKitJs();
+
+  // Create the Map and Geocoder
+  const map = new mapkit.Map("map-container");
+  const geocoder = new mapkit.Geocoder({ language: "en-US" });
+  let long = null;
+
+  let coordinate = new mapkit.Coordinate(37.7831, -122.4041);
+  const eventAnnotation = new mapkit.MarkerAnnotation(coordinate);
+  eventAnnotation.title = "default location";
+  eventAnnotation.color = "#c969e0";
+  eventAnnotation.selected = "true";
+
+  // Add and show both annotations on the map
+  map.showItems([eventAnnotation]);
+  // Perform the reverse lookup
+  geo(coordinate)
+
+  // This will contain the user-set single-tap annotation.
+  let clickAnnotation = null;
+  const addressInput = document.getElementById('address-input');
+
   function removeAllAnnotations() {
     map.removeAnnotations(map.annotations);
   }
 
-  function weather(position, countryCode) {
+  function weather(position, countryCode, postCode) {
     fetch('/location', {
           method: 'POST',
           headers: {
@@ -45,7 +64,8 @@ const main = async() => {
           body: JSON.stringify({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
-              countryCode: countryCode
+              countryCode: countryCode,
+              postCode: postCode || muid
           })
       })
       .then(response => response.text())
@@ -70,9 +90,9 @@ const main = async() => {
       // Assuming the lookup was successful, process the results
       let place = data.results[0];
       let countryCode = place.countryCode; // Get the country from the results
+      let postCode = place.postCode || place.muid;
 
-
-      weather(position, countryCode);
+      weather(position, countryCode, postCode);
       const first = (!error && data.results) ? data.results[0] : null;
       if (clickAnnotation) {
         clickAnnotation.selected = true,
@@ -80,12 +100,8 @@ const main = async() => {
       }
     });
   }
-  // Create the Map and Geocoder
-  const map = new mapkit.Map("map-container");
-  const geocoder = new mapkit.Geocoder({ language: "en-US" });
 
   // Create the "Event" annotation, setting properties in the constructor.
-  let long = null;
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
@@ -101,7 +117,7 @@ const main = async() => {
         map.showItems([ip_lookup]);
 
         // Create a coordinate object
-        var coordinate = new mapkit.Coordinate(position.coords.latitude, position.coords.longitude);
+        let coordinate = new mapkit.Coordinate(position.coords.latitude, position.coords.longitude);
 
         // Perform the reverse lookup
         let countryCode = null;
@@ -114,19 +130,6 @@ const main = async() => {
     }
   };
 
-  var coordinate = new mapkit.Coordinate(37.7831, -122.4041);
-  const eventAnnotation = new mapkit.MarkerAnnotation(coordinate);
-  eventAnnotation.title = "default location";
-  eventAnnotation.color = "#c969e0";
-  eventAnnotation.selected = "true";
-
-  // Add and show both annotations on the map
-  map.showItems([eventAnnotation]);
-  // Perform the reverse lookup
-  geo(coordinate)
-
-  // This will contain the user-set single-tap annotation.
-  let clickAnnotation = null;
 
   // Add or move an annotation when a user single-taps an empty space
   map.addEventListener("single-tap", event => {
@@ -141,6 +144,7 @@ const main = async() => {
           color: "#c969e0"
       });
 
+      addressInput.value = '';
       map.addAnnotation(clickAnnotation);
       geo(coordinate);
   });
@@ -149,7 +153,7 @@ const main = async() => {
   document.getElementById("geocode-form").addEventListener("submit", function(event) {
     event.preventDefault();
 
-    var address = document.getElementById("address-input").value;
+    let address = document.getElementById("address-input").value;
     if (!address) {
       alert("Please enter an address");
       return;
@@ -166,9 +170,7 @@ const main = async() => {
       const result = data.results[0];
       const latitude = result.coordinate.latitude;
       const longitude = result.coordinate.longitude;
-
       const coordinate = new mapkit.Coordinate(latitude, longitude);
-      // const eventAnnotation = new mapkit.MarkerAnnotation(coordinate);
 
       clickAnnotation = new mapkit.MarkerAnnotation(coordinate, {
           title: "Loading...",
