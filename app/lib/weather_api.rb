@@ -19,11 +19,11 @@ class WeatherApi
   end
 
   def humidity
-    "#{@data["currentWeather"]["humidity"]}%"
+    "#{(@data["currentWeather"]["humidity"] * 100).to_i}%"
   end
 
   def precipitation
-    "#{(@data["forecastDaily"]["days"].first["precipitationChance"] * 100).round}%"
+    "#{(@data["forecastDaily"]["days"].first["precipitationChance"] * 100).to_i}%"
   end
 
   def wind_speed
@@ -82,7 +82,6 @@ class WeatherApi
     end
 
     def format_condidtion_code(code)
-      Rails.logger.debug "===> code: #{code}"
       case code
       when "Clear"
         "ClearMostlyClear.png"
