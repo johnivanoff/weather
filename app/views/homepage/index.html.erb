@@ -1,2 +1,13 @@
-<h1>Homepage#index</h1>
-<p>Find me in app/views/homepage/index.html.erb</p>
+<h1>Weather</h1>
+<%= form_tag(update_location_path, method: "post", id: "geocode-form", data: { turbo_stream: true }) do %>
+  <%= text_field_tag :address, nil, placeholder: "Enter Address", id: "address-input" %>
+  <%= submit_tag "Get the Weather" %>
+<% end %>
+
+<turbo-frame id="location"></turbo-frame>
+
+<div id="map-container"></div>
+
+<script type="text/javascript">
+  const jwt = "<%= MapJwt.new.jwt %>";
+</script>

@@ -9,7 +9,7 @@ class WeatherApiTest < ActionDispatch::IntegrationTest
 
   test "should get weather" do
     VCR.use_cassette(@cassette) do
-      @weather = WeatherApi.new(lat: 41.388527, lon: -82.044076)
+      @weather = WeatherApi.new(lat: 41.388527, lon: -82.044076, country_code: "us")
     end
     assert @weather.temperature
     assert @weather.data["currentWeather"]
@@ -18,7 +18,7 @@ class WeatherApiTest < ActionDispatch::IntegrationTest
 
   test "should get Unauthorized" do
     VCR.use_cassette(@cassette) do
-      @weather = WeatherApi.new(lat: 41.388527, lon: -82.044076)
+      @weather = WeatherApi.new(lat: 41.388527, lon: -82.044076, country_code: "us")
     end
 
     assert_equal "MALFORMED_AUTH", @weather.data["reason"]

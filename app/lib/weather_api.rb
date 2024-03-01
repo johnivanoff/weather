@@ -7,8 +7,56 @@ class WeatherApi
   end
 
   def temperature
-    @data["currentWeather"]["temperature"]
+    wind = @data["currentWeather"]["temperature"]
+    wind = celsius_to_fahrenheit(wind) if @query[:country_code].upcase == "US"
+    wind
   end
+
+  def current_condition
+    current_condition = @data["currentWeather"]["conditionCode"]
+    current_condition = format_condidtion_code(current_condition)
+    current_condition
+  end
+
+  def humidity
+    "#{(@data["currentWeather"]["humidity"] * 100).to_i}%"
+  end
+
+  def precipitation
+    "#{(@data["forecastDaily"]["days"].first["precipitationChance"] * 100).to_i}%"
+  end
+
+  def wind_speed
+    wind = @data["currentWeather"]["windSpeed"]
+    wind = kpk_to_mph(wind) if @query[:country_code].upcase == "US"
+    wind
+  end
+
+  def extended_forecast
+    if @query[:country_code].upcase == "US"
+      x = @data["forecastDaily"]["days"].map do |hash|
+        { date: format_date(hash["forecastStart"]),
+          conditionCode: format_condidtion_code(hash["conditionCode"]),
+          temperatureMax: celsius_to_fahrenheit(hash["temperatureMax"]),
+          temperatureMin: celsius_to_fahrenheit(hash["temperatureMin"]),
+          windSpeedAvg: hash["windSpeedAvg"],
+          windSpeedMax: hash["windSpeedMax"]
+        }
+      end
+    else
+      x = @data["forecastDaily"]["days"].map do |hash|
+        { date: format_date(hash["forecastStart"]),
+          conditionCode: format_condidtion_code(hash["conditionCode"]),
+          temperatureMax: hash["temperatureMax"],
+          temperatureMin: hash["temperatureMin"],
+          windSpeedAvg: hash["windSpeedAvg"],
+          windSpeedMax: hash["windSpeedMax"]
+        }
+      end
+    end
+    x
+  end
+
 
   private
     def get_and_parse(uri)
@@ -26,5 +74,45 @@ class WeatherApi
 
     def weather_conditions
       @data["weather"]
+    end
+
+    def format_date(date_string)
+      date = Date.parse(date_string)
+      date.strftime("%a")
+    end
+
+    def format_condidtion_code(code)
+      case code
+      when "Clear"
+        "ClearMostlyClear.png"
+      when "MostlyClear"
+        "ClearMostlyClear.png"
+      when "PartlyCloudy"
+        "PartlyCloudy.png"
+      when "MostlyCloudy"
+        "Cloudy.png"
+      when "Cloudy"
+        "Cloudy.png"
+      when "Hazy"
+        "Haze.png"
+      when "ScatteredThunderstorms"
+        "Thunderstorm.png"
+      when "Drizzle"
+        "DrizzleFreezingDrizzle.png"
+      when "Rain"
+        "Rain.png"
+      when "HeavyRain"
+        "HeavyRain.png"
+      else
+        "ClearMostlyClear.png"
+      end
+    end
+
+    def celsius_to_fahrenheit(celsius)
+      (celsius * 9.0 / 5.0).round + 32
+    end
+
+    def kpk_to_mph(wind)
+      (wind * 0.621371).round
     end
 end

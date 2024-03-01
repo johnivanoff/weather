@@ -1,0 +1,72 @@
+body {
+  background-color: #ffffff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+#map-container {
+  height: 60vh;
+  width: 100%;
+}
+
+section {
+  margin: 10px;
+}
+
+.extended-forecast {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+}
+
+.extended-forecast section {
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.extended-forecast section:first-child {
+  background-color: rgba(155, 155, 155, .1);
+}
+
+span {
+  display: block;
+}
+
+.big-temperature {
+  font-size: 50px;
+  line-height: 1;
+  padding-left: .5rem;
+  padding-right: 1rem;
+}
+
+.big-temperature span {
+  display: block;
+  font-size: 1rem;
+}
+
+.current {
+  display: flex;
+}
+
+.current div {
+  font-size: x-small;
+}
+
+#location {
+  display: inline-block;
+  height: 200px;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #333;
+    color: #e0dede;
+  }
+}
+
+.cache {
+  padding-left: 5rem;
+}
