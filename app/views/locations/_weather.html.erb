@@ -6,6 +6,11 @@
     Humidity: <%= weather[:humidity] %><br />
     Wind: <%= weather[:wind_speed] %>
   </div>
+  <% if weather[:cached] %>
+    <div class="cache">
+      Data was retrieved from cache.
+    </div>
+  <% end %>
 </section>
 
 <div class="extended-forecast">
