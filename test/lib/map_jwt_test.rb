@@ -2,7 +2,7 @@ require "test_helper"
 
 class MapJwtTest < ActiveSupport::TestCase
   test "should return jwt" do
-    jwt =MapJwt.new.jwt
+    jwt = MapJwt.new.jwt
     decoded_payload = JWT.decode(jwt, nil, false).first # Set 'verify' to false for testing purposes
 
     assert_instance_of String, jwt
