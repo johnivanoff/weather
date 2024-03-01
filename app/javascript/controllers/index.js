@@ -35,24 +35,22 @@ const main = async() => {
   }
 
   function weather(position, countryCode) {
-    fetch('/location/update', {
+    fetch('/location', {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            'Accept': 'text/vnd.turbo-stream.html',
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
           },
           body: JSON.stringify({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude,
               countryCode: countryCode
-
           })
       })
-      .then(response => response.json())
-      .then(data => {
-          let temp = data['currentWeather']['temperature'];
-          let temperatureDiv = document.getElementById('temperatureDiv');
-          temperatureDiv.innerHTML = 'Current Temperature: ' + temp + '°';
+      .then(response => response.text())
+      .then(html => {
+        Turbo.renderStreamMessage(html);
       })
       .catch((error) => {
           console.error('Error:', error);

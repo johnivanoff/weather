@@ -1,0 +1,24 @@
+<section class="current">
+  <%= image_tag(weather[:current_condition], size: "50x50") %>
+  <b class="big-temperature"><%= weather[:temperature] %></b>
+  <div>
+    Precipitation: <%= weather[:precipitation] %><br />
+    Humidity: <%= weather[:humidity] %><br />
+    Wind: <%= weather[:wind_speed] %>
+  </div>
+</section>
+
+<div class="extended-forecast">
+  <% weather[:extended_forecast].each do |day| %>
+    <section>
+      <span><%= day[:date] %></span>
+      <span>
+        <%= image_tag(day[:conditionCode], size: "30x30") %>
+      </span>
+      <span>
+        <%= day[:temperatureMax] %>°
+        <%= day[:temperatureMin] %>°
+      </span>
+    </section>
+  <% end %>
+</div>
