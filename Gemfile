@@ -62,11 +62,11 @@ group :development do
   gem "bundler-audit", require: false
 
   # Use rubocop for code style checks
-  gem "rubocop", require: false
-  gem "rubocop-minitest", require: false
+  gem "rubocop", ">= 1.61.0", require: false
+  gem "rubocop-minitest", ">= 0.35.0", require: false
   gem "rubocop-packaging", require: false
-  gem "rubocop-performance", require: false
-  gem "rubocop-rails", require: false
+  gem "rubocop-performance", ">= 1.21.0", require: false
+  gem "rubocop-rails", ">= 2.24.0", require: false
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -78,7 +78,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", ">= 4.19.0"
   gem "vcr"
   gem "webmock"
 end
