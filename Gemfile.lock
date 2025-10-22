@@ -376,7 +376,7 @@ DEPENDENCIES
   jwt
   propshaft (>= 1.2.0)
   puma (>= 5.0)
-  rails (~> 8.0.2, >= 8.0.2.1)
+  rails (~> 8.0)
   rubocop
   rubocop-minitest
   rubocop-packaging
