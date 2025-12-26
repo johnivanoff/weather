@@ -1,8 +1,9 @@
-require:
+plugins:
   - rubocop-performance
   - rubocop-rails
   - rubocop-minitest
   - rubocop-packaging
+  - rubocop-capybara
 
 AllCops:
   TargetRubyVersion: 3.1.3

@@ -266,6 +266,9 @@ GEM
     rubocop-ast (1.48.0)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
+    rubocop-capybara (2.22.1)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     rubocop-minitest (0.38.2)
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
@@ -381,6 +384,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rails (~> 8.0)
   rubocop
+  rubocop-capybara
   rubocop-minitest
   rubocop-packaging
   rubocop-performance
