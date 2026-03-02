@@ -21,7 +21,7 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.2
+          ruby-version: 4.0.1
           bundler-cache: true
       # Add or replace test runners here
       - name: Run tests
@@ -38,7 +38,7 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2.2
+          ruby-version: 4.0.1
           bundler-cache: true
       - name: Security audit dependencies
         run: bundle exec bundler-audit --update
