@@ -59,7 +59,7 @@ group :development do
   gem "bundler-audit", require: false
 
   # Use rubocop for code style checks
-  gem "rubocop", require: false
+  gem "rubocop", ">= 1.85.1", require: false
   gem "rubocop-minitest", require: false
   gem "rubocop-packaging", require: false
   gem "rubocop-performance", require: false
